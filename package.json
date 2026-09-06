@@ -1,0 +1,28 @@
+{
+  "name": "minh-dang-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio of Dang Quang Minh - Unity Game Developer",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "archive": "node scripts/archive-stores.mjs"
+  },
+  "dependencies": {
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "24.10.1",
+    "@types/react": "19.2.8",
+    "@types/react-dom": "19.2.4",
+    "google-play-scraper": "^10.0.0",
+    "sharp": "^0.34.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3"
+  }
+}

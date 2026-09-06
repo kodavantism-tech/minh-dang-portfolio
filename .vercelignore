@@ -1,0 +1,4 @@
+# The raw store archive (original-resolution screenshots + raw store JSON) is the
+# long-term preservation copy. It lives in the repo, not on the CDN — the site
+# itself only ever serves the optimised copies under /public/games.
+archive/

@@ -1,0 +1,119 @@
+# Portfolio — Đặng Quang Minh, Unity Game Developer
+
+**Live: https://dangquangminh.vercel.app**
+
+Next.js 16 · React 19 · Tailwind CSS v4 · TypeScript. No database, no backend, no
+third-party analytics — every page is static HTML generated at build time.
+
+---
+
+## Sửa nội dung (việc bạn sẽ làm nhiều nhất)
+
+Toàn bộ chữ trên site nằm trong **hai file**. Không cần đụng vào component nào.
+
+| File | Chứa gì |
+|---|---|
+| `content/profile.ts` | Tên, giới thiệu, kinh nghiệm, học vấn, kỹ năng, và **đóng góp của bạn ở từng game** |
+| `content/ui.ts` | Nhãn giao diện (nút, tiêu đề mục, badge) |
+
+Mỗi chuỗi có hai bản: `{ en: '...', vi: '...' }`. Sửa cả hai để giữ song ngữ.
+
+### Ba thứ bạn nên xem lại đầu tiên
+
+1. **Mốc thời gian đi làm.** CV ghi thực tập 07/2024 → 09/2025, rồi Unity Developer
+   09/2025 → nay. Trong chat bạn nói "đi làm từ 09/2024". Site đang theo CV. Nếu CV
+   sai, sửa hai dòng `period` trong `experience` ở `content/profile.ts`.
+
+2. **Số điện thoại và địa chỉ.** Mặc định **không đăng**. Đầu `content/profile.ts`:
+   ```ts
+   export const SHOW_PHONE = false;          // đổi thành true để hiện SĐT
+   export const SHOW_STREET_ADDRESS = false; // đổi thành true để hiện địa chỉ
+   ```
+   Địa chỉ hiện tại chỉ hiển thị ở mức thành phố ("Hà Nội, Việt Nam").
+
+3. **Phần đóng góp từng game** (`gameContent` trong `content/profile.ts`). Nội dung
+   hiện tại lấy từ CV. Càng thêm chi tiết cụ thể — con số, tên hệ thống, vấn đề đã
+   giải — thì HR càng đánh giá cao.
+
+Sửa xong thì:
+
+```bash
+npm run build      # kiểm tra không lỗi
+npx vercel deploy --prod --yes
+```
+
+---
+
+## Vì sao portfolio này sống lâu hơn các store listing
+
+Game mobile bị đổi tên, khoá theo vùng hoặc gỡ hẳn là chuyện thường. **Đã xảy ra
+với chính bạn**: game tên `Jackal Retro - Tank Shooter` trong CV giờ là
+`Strike Force: Tank Shooter` trên App Store.
+
+Nên site này **không bao giờ tải ảnh từ server của Google hay Apple lúc người dùng
+mở trang**. Mọi thứ nằm sẵn trong repo, ba lớp:
+
+```
+archive/<slug>/store-raw.json   JSON thô của store, nguyên vẹn
+archive/<slug>/raw/*.orig       ảnh gốc full-res (65 MB, giữ trong git,
+                                  .vercelignore loại khỏi bản deploy)
+public/games/<slug>/*.webp      bản đã resize mà site phục vụ (3.9 MB)
+content/store-data.json         manifest site đọc lúc build
+```
+
+Mỗi trang game hiển thị badge *"Archived 7 September 2026"* — số liệu là ảnh chụp
+tại thời điểm đó, không phải số liệu trực tiếp. Link store chỉ là link phụ; listing
+chết thì trang vẫn đầy đủ thông tin.
+
+### Cập nhật lại số liệu
+
+```bash
+npm run archive
+```
+
+Kéo lại metadata + ảnh của cả 4 game, ghi đè tại chỗ. Nếu một listing đã bị gỡ,
+script **giữ nguyên bản archive cũ** cho game đó, báo lỗi ra terminal, và site vẫn
+build được. Thêm game mới: thêm một dòng vào `TARGETS` trong
+`scripts/archive-stores.mjs`, rồi viết phần đóng góp vào `gameContent`.
+
+---
+
+## Chạy tại máy
+
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # bản production
+```
+
+## Cấu trúc
+
+```
+app/                 route + metadata (robots, sitemap, OG image, favicon)
+components/          UI. Lang.tsx giữ state song ngữ EN/VI
+content/             nội dung chữ + manifest store
+lib/                 games.ts gộp dữ liệu store với nội dung tay; site.ts giữ URL gốc
+scripts/
+  archive-stores.mjs npm run archive
+  make-og.mjs        tạo lại ảnh preview khi share link
+archive/             bản lưu trữ gốc (không deploy)
+```
+
+## Ghi chú kỹ thuật
+
+- **Ảnh**: `images.unoptimized = true` trong `next.config.ts`. Ảnh đã resize sẵn lúc
+  archive nên không tốn quota image-transform của Vercel free. Dùng thẻ `<img>` kèm
+  `width`/`height` thật để không bị layout shift; mỗi ảnh có placeholder blur base64.
+- **Tailwind v4**: không có `tailwind.config.js`. Token màu khai báo trong `@theme`
+  ở `app/globals.css`.
+- **Song ngữ**: mặc định English; tự chuyển sang tiếng Việt nếu trình duyệt đặt
+  ngôn ngữ `vi`; lựa chọn lưu trong `localStorage`.
+- **Không JavaScript vẫn đọc được**: hiệu ứng fade-in chỉ kích hoạt khi `<html>` có
+  class `.js`, class này do inline script thêm vào.
+- **Đổi sang tên miền riêng**: sửa `lib/site.ts`, rồi trỏ domain trong dashboard Vercel.
+
+## Đổi tên miền / URL
+
+URL hiện tại do Vercel cấp. Muốn dùng tên miền riêng: mua domain, vào
+Vercel → project `dangquangminh` → Settings → Domains, thêm domain, rồi sửa
+`SITE_URL` trong `lib/site.ts` và deploy lại.
