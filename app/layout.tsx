@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     'Vietnam',
     profile.nameLatin,
   ],
-  authors: [{ name: profile.nameLatin, url: profile.github }],
+  authors: [{ name: profile.nameLatin }],
   creator: profile.nameLatin,
   openGraph: {
     type: 'profile',

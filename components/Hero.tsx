@@ -58,7 +58,6 @@ export function Hero() {
           </div>
 
           <p className="mt-7 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-faint">
-            <span className="chip">{t(profile.availability)}</span>
             <span className="chip">{t(profile.location)}</span>
           </p>
         </div>

@@ -24,9 +24,8 @@ Mỗi chuỗi có hai bản: `{ en: '...', vi: '...' }`. Sửa cả hai để gi
    09/2025 → nay. Trong chat bạn nói "đi làm từ 09/2024". Site đang theo CV. Nếu CV
    sai, sửa hai dòng `period` trong `experience` ở `content/profile.ts`.
 
-2. **Số điện thoại và địa chỉ.** Mặc định **không đăng**. Đầu `content/profile.ts`:
+2. **Địa chỉ.** Mặc định **không đăng**. Đầu `content/profile.ts`:
    ```ts
-   export const SHOW_PHONE = false;          // đổi thành true để hiện SĐT
    export const SHOW_STREET_ADDRESS = false; // đổi thành true để hiện địa chỉ
    ```
    Địa chỉ hiện tại chỉ hiển thị ở mức thành phố ("Hà Nội, Việt Nam").

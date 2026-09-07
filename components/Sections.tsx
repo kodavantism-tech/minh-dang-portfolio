@@ -6,14 +6,7 @@ import { useLang } from '@/components/Lang';
 import { Reveal } from '@/components/Reveal';
 import { GameCard } from '@/components/GameCard';
 import { games } from '@/lib/games';
-import {
-  profile,
-  experience,
-  education,
-  skills,
-  SHOW_PHONE,
-  SHOW_STREET_ADDRESS,
-} from '@/content/profile';
+import { profile, experience, skills, SHOW_STREET_ADDRESS } from '@/content/profile';
 import type { UiKey } from '@/content/ui';
 
 /* -------------------------------------------------------------- section shell */
@@ -101,18 +94,6 @@ export function Experience() {
           </Reveal>
         ))}
       </ol>
-
-      <Reveal className="mt-12">
-        <h3 className="eyebrow mb-4">{u('educationTitle')}</h3>
-        <div className="card flex max-w-4xl flex-wrap items-baseline justify-between gap-x-6 gap-y-2 p-5 sm:p-6">
-          <div>
-            <p className="font-display text-lg font-semibold text-ink">{t(education.school)}</p>
-            <p className="mt-1 text-sm text-muted">{t(education.major)}</p>
-            <p className="mt-1 text-xs text-faint">{t(education.coursework)}</p>
-          </div>
-          <p className="text-sm text-faint tabular-nums">{t(education.period)}</p>
-        </div>
-      </Reveal>
     </Section>
   );
 }
@@ -193,25 +174,6 @@ export function Contact() {
             </a>
             <CopyEmail />
           </ContactRow>
-
-          <ContactRow label={u('contactGithub')}>
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="text-[0.98rem] font-medium text-ink underline decoration-accent/50 underline-offset-4 transition hover:decoration-accent"
-            >
-              {profile.githubLabel}
-            </a>
-          </ContactRow>
-
-          {SHOW_PHONE && (
-            <ContactRow label={u('contactPhone')}>
-              <a href={`tel:${profile.phone.replace(/\s/g, '')}`} className="text-[0.98rem] font-medium text-ink">
-                {profile.phone}
-              </a>
-            </ContactRow>
-          )}
 
           <ContactRow label={u('contactLocation')}>
             <span className="text-[0.98rem] text-ink">

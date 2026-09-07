@@ -27,7 +27,6 @@ export const ui = {
   },
 
   experienceTitle: { en: 'Experience', vi: 'Kinh nghiệm làm việc' },
-  educationTitle: { en: 'Education', vi: 'Học vấn' },
   skillsTitle: { en: 'Skills', vi: 'Kỹ năng' },
   skillsLead: {
     en: 'What I reach for when a feature has to ship and still be maintainable six months later.',
@@ -36,12 +35,10 @@ export const ui = {
 
   contactTitle: { en: 'Let’s talk', vi: 'Cùng trao đổi' },
   contactLead: {
-    en: 'Open to Unity developer roles — gameplay, systems or tools. The fastest way to reach me is email.',
-    vi: 'Sẵn sàng cho các vị trí Unity Developer — gameplay, hệ thống hoặc tooling. Cách nhanh nhất là qua email.',
+    en: 'Happy to talk about gameplay, systems or tools. The fastest way to reach me is email.',
+    vi: 'Sẵn sàng trao đổi về gameplay, hệ thống hoặc tooling. Cách nhanh nhất là qua email.',
   },
   contactEmail: { en: 'Email', vi: 'Email' },
-  contactGithub: { en: 'GitHub', vi: 'GitHub' },
-  contactPhone: { en: 'Phone', vi: 'Điện thoại' },
   contactLocation: { en: 'Location', vi: 'Địa điểm' },
   copyEmail: { en: 'Copy', vi: 'Sao chép' },
   copied: { en: 'Copied', vi: 'Đã chép' },

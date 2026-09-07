@@ -8,7 +8,6 @@
  *  without you deciding. Flip to `true` only if you want them public.
  * ========================================================================== */
 
-export const SHOW_PHONE = false; // set true to publish your phone number
 export const SHOW_STREET_ADDRESS = false; // set true to publish your district/street
 
 export type Bi = { en: string; vi: string };
@@ -32,14 +31,6 @@ export const profile = {
   streetAddress: { en: 'Thanh Xuan, Hanoi', vi: 'Thanh Xuân, Hà Nội' } satisfies Bi,
 
   email: 'minhdangquang0302@gmail.com',
-  phone: '0372 229 112',
-  github: 'https://github.com/minhdangqmd',
-  githubLabel: 'github.com/minhdangqmd',
-
-  availability: {
-    en: 'Open to Unity developer roles',
-    vi: 'Sẵn sàng cho vị trí Unity Developer',
-  } satisfies Bi,
 } as const;
 
 /* ---------------------------------------------------------------------------
@@ -120,16 +111,6 @@ export const experience: Role[] = [
     ],
   },
 ];
-
-export const education = {
-  school: { en: 'Vietnam Maritime University', vi: 'Trường Đại học Hàng hải Việt Nam' } satisfies Bi,
-  period: { en: '2021 — 2025', vi: '2021 — 2025' } satisfies Bi,
-  major: { en: 'B.S. Information Technology', vi: 'Cử nhân Công nghệ Thông tin' } satisfies Bi,
-  coursework: {
-    en: 'Object-Oriented Programming · Data Structures & Algorithms',
-    vi: 'Lập trình hướng đối tượng · Cấu trúc dữ liệu & Giải thuật',
-  } satisfies Bi,
-};
 
 /* ------------------------------------------------------------------------- */
 
