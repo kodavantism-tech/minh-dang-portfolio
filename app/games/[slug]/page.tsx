@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { GameDetail } from '@/components/GameDetail';
 import { games, getGame, compactInstalls } from '@/lib/games';
+import { JsonLd } from '@/components/JsonLd';
+import { gameSchema } from '@/lib/schema';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -34,6 +36,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function GamePage({ params }: Props) {
   const { slug } = await params;
-  if (!getGame(slug)) notFound();
-  return <GameDetail slug={slug} />;
+  const game = getGame(slug);
+  if (!game) notFound();
+
+  return (
+    <>
+      <JsonLd data={gameSchema(game)} />
+      <GameDetail slug={slug} />
+    </>
+  );
 }

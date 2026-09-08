@@ -1,0 +1,54 @@
+# Re-archives the store listings on a schedule.
+#
+# The whole point of this portfolio is that it does not depend on Google or
+# Apple being up — it serves its own copy of every screenshot and stat. That
+# copy goes stale, so this refreshes it monthly and commits the diff.
+#
+# If a listing has been renamed, region-locked or pulled, scripts/archive-stores.mjs
+# keeps the previous capture for that game and exits 0, so a dead listing shows
+# up as "no change" here rather than a red build.
+name: Archive store listings
+
+on:
+  schedule:
+    # 02:00 UTC on the 1st of each month (09:00 in Hanoi).
+    - cron: '0 2 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: archive
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Pull fresh store data and images
+        run: npm run archive
+
+      - name: Verify the site still builds from what was archived
+        run: npm run build
+
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet -- archive public/games content/store-data.json; then
+            echo "Store data unchanged — nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add archive public/games content/store-data.json
+          git commit -m "chore: refresh archived store data ($(date -u +%Y-%m-%d))"
+          git push

@@ -163,6 +163,26 @@
   }
 }
 
+/* CV bullets: a marker that survives the print stylesheet below, where the
+   flex-and-dot pattern used elsewhere on the site collapses awkwardly. */
+@layer components {
+  .cv-bullet {
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .cv-bullet::before {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: 0.62em;
+    width: 0.25rem;
+    height: 0.25rem;
+    border-radius: 9999px;
+    background: var(--color-faint);
+  }
+}
+
 /* Printing a portfolio still happens — make it legible on paper. */
 @media print {
   .ambience,
@@ -184,5 +204,85 @@
     content: ' (' attr(href) ')';
     font-size: 0.75em;
     color: #555;
+  }
+
+  /* ---- /cv only: an A4 document, not a screenshot of a dark website ---- */
+  @page {
+    size: A4;
+    margin: 14mm 15mm;
+  }
+
+  .cv {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+    font-size: 10.5pt;
+    line-height: 1.42;
+  }
+
+  /* Tailwind's utility colours are per-element, so recolour by hand. */
+  .cv,
+  .cv h1,
+  .cv h2,
+  .cv h3,
+  .cv p,
+  .cv li,
+  .cv dt,
+  .cv dd,
+  .cv span,
+  .cv a {
+    color: #111 !important;
+  }
+
+  .cv .text-muted,
+  .cv .text-faint,
+  .cv dd {
+    color: #3d3d3d !important;
+  }
+
+  .cv .eyebrow {
+    color: #666 !important;
+    letter-spacing: 0.14em;
+  }
+
+  .cv h1 {
+    font-size: 20pt;
+  }
+
+  .cv h3 {
+    font-size: 11pt;
+  }
+
+  .cv .cv-bullet::before {
+    background: #777;
+  }
+
+  .cv .border-line,
+  .cv .cv-section h2,
+  .cv .cv-head {
+    border-color: #bbb !important;
+  }
+
+  .cv .cv-section {
+    margin-top: 1.15rem;
+    break-inside: auto;
+  }
+
+  /* Never split a job or a game across two sheets. */
+  .cv .cv-item,
+  .cv .cv-skill {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .cv h2,
+  .cv h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* The contact line already prints the address as its own text. */
+  .cv .cv-contact a[href^='http']::after {
+    content: '';
   }
 }

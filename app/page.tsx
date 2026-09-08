@@ -2,10 +2,14 @@ import { Nav } from '@/components/Nav';
 import { Hero } from '@/components/Hero';
 import { Stats } from '@/components/Stats';
 import { Work, Experience, Skills, Contact, Footer } from '@/components/Sections';
+import { JsonLd } from '@/components/JsonLd';
+import { personSchema, worksListSchema } from '@/lib/schema';
 
 export default function Home() {
   return (
     <>
+      <JsonLd data={personSchema()} />
+      <JsonLd data={worksListSchema()} />
       <Nav />
       <main>
         <Hero />

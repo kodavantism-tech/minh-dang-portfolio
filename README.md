@@ -77,6 +77,44 @@ build được. Thêm game mới: thêm một dòng vào `TARGETS` trong
 
 ---
 
+## Trang CV in được — `/cv`
+
+`https://dangquangminh.vercel.app/cv` là bản CV, dựng từ **chính**
+`content/profile.ts`. Không có bản chữ thứ hai, nên CV không bao giờ lệch với site.
+
+Bấm nút **In / Lưu thành PDF** (hoặc Ctrl+P) rồi chọn "Save as PDF". Bản in tự
+động bỏ nav, nút bấm và màu nền; chuyển sang chữ đen trên nền trắng, khổ A4, và
+không cắt đôi một công việc hay một game giữa hai trang. Quy tắc in nằm cuối
+`app/globals.css`, trong `@media print`.
+
+Muốn CV tiếng Việt: đổi ngôn ngữ bằng nút trên nav **rồi mới** in.
+
+## Structured data (JSON-LD)
+
+`lib/schema.ts` sinh dữ liệu có cấu trúc cho Google:
+
+- `Person` + `ItemList` ở trang chủ — tên, chức danh, kỹ năng, 4 game.
+- `VideoGame` ở mỗi trang game — kèm `aggregateRating` lấy từ số liệu đã archive.
+
+Tất cả suy ra từ `content/profile.ts` và `content/store-data.json`, không khai lại
+bằng tay: sửa nội dung thì schema tự đổi theo. Kiểm tra bằng
+[Rich Results Test](https://search.google.com/test/rich-results).
+
+## CI / tự động hoá
+
+Trong `.github/workflows/`:
+
+| Workflow | Khi nào chạy | Làm gì |
+|---|---|---|
+| `ci.yml` | mỗi push lên `main`, mỗi PR | `npm run typecheck` + `npm run build` |
+| `archive.yml` | 02:00 UTC ngày 1 hàng tháng, hoặc bấm tay | chạy `npm run archive`, build thử, commit nếu số liệu store đổi |
+
+`archive.yml` cần quyền ghi (`contents: write`) — đã khai sẵn trong file. Nếu một
+listing bị gỡ, script giữ bản archive cũ và vẫn thoát 0, nên workflow báo xanh chứ
+không đỏ. Chạy tay: tab **Actions** → *Archive store listings* → **Run workflow**.
+
+---
+
 ## Chạy tại máy
 
 ```bash

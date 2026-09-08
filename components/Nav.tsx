@@ -10,6 +10,7 @@ const LINKS = [
   { href: '/#experience', key: 'navExperience' },
   { href: '/#skills', key: 'navSkills' },
   { href: '/#contact', key: 'navContact' },
+  { href: '/cv', key: 'navCv' },
 ] as const;
 
 export function Nav() {

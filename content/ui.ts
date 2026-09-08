@@ -6,6 +6,7 @@ export const ui = {
   navExperience: { en: 'Experience', vi: 'Kinh nghiệm' },
   navSkills: { en: 'Skills', vi: 'Kỹ năng' },
   navContact: { en: 'Contact', vi: 'Liên hệ' },
+  navCv: { en: 'CV', vi: 'CV' },
 
   heroKicker: { en: 'Unity Game Developer · Hanoi', vi: 'Lập trình viên Game Unity · Hà Nội' },
   heroCtaWork: { en: 'See the games', vi: 'Xem các game' },
@@ -76,6 +77,20 @@ export const ui = {
     vi: 'Xây bằng Next.js. Tài nguyên store được lưu cục bộ để portfolio tồn tại lâu hơn các listing.',
   },
   langLabel: { en: 'Tiếng Việt', vi: 'English' },
+
+  /* --- CV page. Everything here only appears on /cv. --- */
+  cvTitle: { en: 'Curriculum vitae', vi: 'Sơ yếu lý lịch' },
+  cvPrint: { en: 'Print / Save as PDF', vi: 'In / Lưu thành PDF' },
+  cvHint: {
+    en: 'This page is the CV. Press the button (or Ctrl+P) and choose “Save as PDF” — navigation, colours and this note are dropped from the printed copy.',
+    vi: 'Trang này chính là bản CV. Bấm nút (hoặc Ctrl+P) rồi chọn “Lưu thành PDF” — điều hướng, màu nền và dòng ghi chú này sẽ không được in ra.',
+  },
+  cvProfile: { en: 'Profile', vi: 'Giới thiệu' },
+  cvGames: { en: 'Shipped titles', vi: 'Game đã phát hành' },
+  cvSource: {
+    en: 'Full portfolio with screenshots and archived store data:',
+    vi: 'Portfolio đầy đủ kèm ảnh và dữ liệu store đã lưu trữ:',
+  },
 
   notFoundTitle: { en: 'Page not found', vi: 'Không tìm thấy trang' },
   notFoundBody: { en: 'That page does not exist.', vi: 'Trang này không tồn tại.' },
