@@ -195,6 +195,7 @@ export function Footer() {
     { href: `${base}/#experience`, key: 'navExperience' },
     { href: `${base}/#skills`, key: 'navSkills' },
     { href: `${base}/#contact`, key: 'navContact' },
+    { href: `${base}/cv`, key: 'navCv' },
   ];
 
   return (

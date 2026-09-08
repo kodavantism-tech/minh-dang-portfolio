@@ -55,6 +55,14 @@ export function Hero() {
             >
               {u('heroCtaContact')}
             </Link>
+            {/* The CV is what a recruiter actually came for — it should not be
+                reachable only through the menu. */}
+            <Link
+              href={`${base}/cv`}
+              className="inline-flex items-center gap-2 rounded-full px-4 py-3 text-sm font-semibold text-muted underline decoration-line underline-offset-4 transition hover:text-ink hover:decoration-accent"
+            >
+              {u('navCv')}
+            </Link>
           </div>
 
           <p className="mt-7 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-faint">
@@ -114,7 +122,9 @@ export function Hero() {
               </Link>
             ))}
           </div>
-          <p className="mt-3 text-center text-xs text-faint">
+          {/* text-muted, not text-faint: this line sits on top of the accent
+              glow, where the fainter grey drops below 4.5:1. */}
+          <p className="mt-3 text-center text-xs text-muted">
             {lang === 'vi'
               ? `${totals.titles} tựa game đã phát hành · ${compactInstalls(totals.installs)} lượt tải`
               : `${totals.titles} shipped titles · ${compactInstalls(totals.installs)} downloads`}

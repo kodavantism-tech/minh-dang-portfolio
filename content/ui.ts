@@ -7,6 +7,7 @@ export const ui = {
   navSkills: { en: 'Skills', vi: 'Kỹ năng' },
   navContact: { en: 'Contact', vi: 'Liên hệ' },
   navCv: { en: 'CV', vi: 'CV' },
+  menu: { en: 'Menu', vi: 'Menu' },
 
   heroKicker: { en: 'Unity Game Developer · Hanoi', vi: 'Lập trình viên Game Unity · Hà Nội' },
   heroCtaWork: { en: 'See the games', vi: 'Xem các game' },
@@ -83,8 +84,8 @@ export const ui = {
   cvPrint: { en: 'Print / Save as PDF', vi: 'In / Lưu thành PDF' },
   cvDownload: { en: 'Download PDF', vi: 'Tải PDF' },
   cvHint: {
-    en: 'This page is the CV. Press the button (or Ctrl+P) and choose “Save as PDF” — navigation, colours and this note are dropped from the printed copy.',
-    vi: 'Trang này chính là bản CV. Bấm nút (hoặc Ctrl+P) rồi chọn “Lưu thành PDF” — điều hướng, màu nền và dòng ghi chú này sẽ không được in ra.',
+    en: 'This page is the CV. Download the PDF, or print the page yourself — navigation, colours and this note are dropped from the printed copy.',
+    vi: 'Trang này chính là bản CV. Tải file PDF, hoặc tự in trang này — điều hướng, màu nền và dòng ghi chú này sẽ không xuất hiện trên bản in.',
   },
   cvProfile: { en: 'Profile', vi: 'Giới thiệu' },
   cvGames: { en: 'Shipped titles', vi: 'Game đã phát hành' },
