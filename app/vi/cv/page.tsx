@@ -5,14 +5,14 @@ import { profile } from '@/content/profile';
 
 export const metadata: Metadata = {
   title: 'CV',
-  description: `One-page CV for ${profile.nameLatin}, Unity game developer in Hanoi. Print or save as PDF straight from the page.`,
+  description: `CV một trang của ${profile.name}, lập trình viên game Unity tại Hà Nội. In hoặc lưu thành PDF ngay trên trang.`,
   alternates: {
-    canonical: '/cv',
+    canonical: '/vi/cv',
     languages: { en: '/cv', vi: '/vi/cv' },
   },
 };
 
-export default function CvPage() {
+export default function CvPageVi() {
   return (
     <>
       <Nav />

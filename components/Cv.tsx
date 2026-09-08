@@ -19,7 +19,7 @@ import { SITE_URL } from '@/lib/site';
 const SITE_LABEL = SITE_URL.replace(/^https?:\/\//, '');
 
 export function Cv() {
-  const { t, u, lang } = useLang();
+  const { t, u, lang, base } = useLang();
 
   return (
     <main className="cv shell max-w-3xl py-10 md:py-14">
@@ -136,7 +136,12 @@ export function Cv() {
 
       <p className="mt-10 border-t border-line pt-5 text-xs text-faint">
         {u('cvSource')}{' '}
-        <Link href="/" className="text-accent-soft hover:text-ink">
+        {/* Underlined, not just tinted: a link inside a paragraph cannot rely
+            on colour alone to be recognisable. */}
+        <Link
+          href={base || '/'}
+          className="text-accent-soft underline decoration-accent/50 underline-offset-2 hover:text-ink"
+        >
           {SITE_LABEL}
         </Link>
       </p>

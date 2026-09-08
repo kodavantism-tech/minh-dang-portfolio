@@ -9,7 +9,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "archive": "node scripts/archive-stores.mjs",
-    "cv:pdf": "node scripts/make-cv-pdf.mjs"
+    "cv:pdf": "node scripts/make-cv-pdf.mjs",
+    "og": "node scripts/make-og.mjs"
   },
   "dependencies": {
     "next": "16.3.4",

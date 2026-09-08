@@ -10,7 +10,7 @@ import { StoreBadge, MetricRow, ArchiveNote } from '@/components/StoreBits';
 import { games, formatDate, compactInstalls, type Game } from '@/lib/games';
 
 export function GameDetail({ slug }: { slug: string }) {
-  const { t, u, lang } = useLang();
+  const { t, u, lang, base } = useLang();
   const game = games.find((g) => g.slug === slug)!;
   const others = games.filter((g) => g.slug !== slug);
 
@@ -48,7 +48,7 @@ export function GameDetail({ slug }: { slug: string }) {
 
           <div className="shell">
             <Link
-              href="/#work"
+              href={`${base}/#work`}
               className="mb-8 inline-flex items-center gap-1.5 text-sm text-muted transition hover:text-ink"
             >
               <svg viewBox="0 0 20 20" className="size-3.5" fill="currentColor">
@@ -169,7 +169,7 @@ export function GameDetail({ slug }: { slug: string }) {
                 <ul className="space-y-3">
                   {others.map((o) => (
                     <li key={o.slug}>
-                      <Link href={`/games/${o.slug}`} className="group flex items-center gap-3">
+                      <Link href={`${base}/games/${o.slug}`} className="group flex items-center gap-3">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={o.icon.src}

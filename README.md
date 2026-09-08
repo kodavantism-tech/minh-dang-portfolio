@@ -113,6 +113,17 @@ Chromium đóng dấu thời gian tới từng giây vào PDF, nên script làm 
 0h — chạy hai lần liên tiếp ra file giống hệt nhau từng byte, và CI chỉ commit
 khi CV thật sự đổi.
 
+## Ảnh share (Open Graph)
+
+```bash
+npm run og
+```
+
+Sinh `app/opengraph-image.png` (cho cả site) và `public/og/<slug>.png` (mỗi game
+một tấm 1200×630, có icon, tên, thể loại, số liệu và hai ảnh chụp). Trước đây
+trang game share bằng đúng một ảnh chụp điện thoại dạng dọc, mỗi nền tảng cắt
+một kiểu. Chạy lại sau mỗi lần `npm run archive`.
+
 ## Structured data (JSON-LD)
 
 `lib/schema.ts` sinh dữ liệu có cấu trúc cho Google:
@@ -133,6 +144,11 @@ Trong `.github/workflows/`:
 | `ci.yml` | mỗi push lên `main`, mỗi PR | `npm run typecheck` + `npm run build` |
 | `archive.yml` | 02:00 UTC ngày 1 hàng tháng, hoặc bấm tay | chạy `npm run archive`, build thử, commit nếu số liệu store đổi |
 | `cv-pdf.yml` | khi push đụng vào nội dung CV | in lại hai file PDF, commit nếu khác |
+| `lighthouse.yml` | mỗi push lên `main`, mỗi PR | audit 4 trang, chặn nếu điểm tụt |
+
+Ngưỡng Lighthouse nằm trong `.lighthouserc.json`: accessibility, SEO và
+best-practices phải đạt **100** (hiện đang đạt), performance tối thiểu 85 vì
+runner của GitHub chậm hơn máy cá nhân.
 
 `archive.yml` cần quyền ghi (`contents: write`) — đã khai sẵn trong file. Nếu một
 listing bị gỡ, script giữ bản archive cũ và vẫn thoát 0, nên workflow báo xanh chứ
@@ -168,8 +184,13 @@ archive/             bản lưu trữ gốc (không deploy)
   `width`/`height` thật để không bị layout shift; mỗi ảnh có placeholder blur base64.
 - **Tailwind v4**: không có `tailwind.config.js`. Token màu khai báo trong `@theme`
   ở `app/globals.css`.
-- **Song ngữ**: mặc định English; tự chuyển sang tiếng Việt nếu trình duyệt đặt
-  ngôn ngữ `vi`; lựa chọn lưu trong `localStorage`.
+- **Song ngữ**: ngôn ngữ nằm ở URL, không phải ở `localStorage`.
+  `/` `/cv` `/games/x` là tiếng Anh; `/vi` `/vi/cv` `/vi/games/x` là tiếng Việt.
+  Cả hai đều được sinh tĩnh, khai báo `hreflang` trỏ sang nhau, và có mặt trong
+  sitemap — nên Google index được **cả hai** bản. Trước đây mọi trang đều xuất ra
+  HTML tiếng Anh rồi mới đổi sau khi hydrate, nên bản tiếng Việt vô hình với
+  công cụ tìm kiếm. Nút đổi ngôn ngữ giờ là một link điều hướng, không phải nút
+  bật/tắt state.
 - **Không JavaScript vẫn đọc được**: hiệu ứng fade-in chỉ kích hoạt khi `<html>` có
   class `.js`, class này do inline script thêm vào.
 - **Đổi sang tên miền riêng**: sửa `lib/site.ts`, rồi trỏ domain trong dashboard Vercel.

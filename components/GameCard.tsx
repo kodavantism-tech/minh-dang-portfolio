@@ -6,12 +6,12 @@ import { StoreBadge, MetricRow } from '@/components/StoreBits';
 import type { Game } from '@/lib/games';
 
 export function GameCard({ game, index }: { game: Game; index: number }) {
-  const { t, u } = useLang();
+  const { t, u, base } = useLang();
   const cover = game.shots[0];
 
   return (
     <Link
-      href={`/games/${game.slug}`}
+      href={`${base}/games/${game.slug}`}
       className="card group relative flex flex-col overflow-hidden transition duration-300 hover:-translate-y-1 hover:border-white/20"
       style={{ ['--accent' as string]: game.accent }}
     >

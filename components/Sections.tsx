@@ -189,12 +189,12 @@ export function Contact() {
 /* ---------------------------------------------------------------------- footer */
 
 export function Footer() {
-  const { u } = useLang();
+  const { u, base } = useLang();
   const links: { href: string; key: UiKey }[] = [
-    { href: '/#work', key: 'navWork' },
-    { href: '/#experience', key: 'navExperience' },
-    { href: '/#skills', key: 'navSkills' },
-    { href: '/#contact', key: 'navContact' },
+    { href: `${base}/#work`, key: 'navWork' },
+    { href: `${base}/#experience`, key: 'navExperience' },
+    { href: `${base}/#skills`, key: 'navSkills' },
+    { href: `${base}/#contact`, key: 'navContact' },
   ];
 
   return (

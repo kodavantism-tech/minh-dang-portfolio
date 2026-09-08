@@ -6,7 +6,7 @@ import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Sections';
 
 export default function NotFound() {
-  const { u } = useLang();
+  const { u, base } = useLang();
   return (
     <>
       <Nav />
@@ -15,7 +15,7 @@ export default function NotFound() {
         <h1 className="mt-4 text-3xl font-semibold tracking-tight">{u('notFoundTitle')}</h1>
         <p className="mt-3 text-muted">{u('notFoundBody')}</p>
         <Link
-          href="/"
+          href={base || '/'}
           className="mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-bg transition hover:bg-white"
         >
           {u('notFoundCta')}

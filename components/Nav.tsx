@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useLang, LangToggle } from '@/components/Lang';
 import { profile } from '@/content/profile';
 
+/** Paths are relative to the active language — see `base` in Lang.tsx. */
 const LINKS = [
   { href: '/#work', key: 'navWork' },
   { href: '/#experience', key: 'navExperience' },
@@ -14,7 +15,7 @@ const LINKS = [
 ] as const;
 
 export function Nav() {
-  const { u } = useLang();
+  const { u, base } = useLang();
   const [solid, setSolid] = useState(false);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export function Nav() {
     >
       <nav className="shell flex h-16 items-center justify-between gap-4">
         <Link
-          href="/"
+          href={base || '/'}
           className="group flex items-center gap-2.5 text-sm font-semibold tracking-tight text-ink"
         >
           <span className="grid size-7 place-items-center rounded-lg bg-gradient-to-br from-accent to-teal text-[0.68rem] font-bold text-bg">
@@ -46,7 +47,7 @@ export function Nav() {
             {LINKS.map((l) => (
               <li key={l.href}>
                 <Link
-                  href={l.href}
+                  href={`${base}${l.href}`}
                   className="rounded-full px-3 py-1.5 text-sm text-muted transition hover:bg-white/5 hover:text-ink"
                 >
                   {u(l.key)}

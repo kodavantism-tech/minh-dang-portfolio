@@ -21,12 +21,10 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PORT = 4321;
 const BASE = `http://127.0.0.1:${PORT}`;
 
-/** localStorage key read by components/Lang.tsx. */
-const LANG_KEY = 'portfolio-lang';
-
+/** Language is a route, so each PDF is simply a different URL. */
 const OUTPUTS = [
-  { lang: 'en', file: 'dang-quang-minh-cv.pdf' },
-  { lang: 'vi', file: 'dang-quang-minh-cv-vi.pdf' },
+  { path: '/cv', file: 'dang-quang-minh-cv.pdf' },
+  { path: '/vi/cv', file: 'dang-quang-minh-cv-vi.pdf' },
 ];
 
 /**
@@ -74,17 +72,10 @@ const server = await startServer();
 const browser = await chromium.launch();
 
 try {
-  for (const { lang, file } of OUTPUTS) {
+  for (const { path: route, file } of OUTPUTS) {
     const context = await browser.newContext();
-    // Set the language before any page script runs, so the CV renders in the
-    // right language on first paint instead of flipping after hydration.
-    await context.addInitScript(
-      ([key, value]) => window.localStorage.setItem(key, value),
-      [LANG_KEY, lang]
-    );
-
     const page = await context.newPage();
-    await page.goto(`${BASE}/cv`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE}${route}`, { waitUntil: 'networkidle' });
     // Fonts load through next/font; printing before they land gives fallback metrics.
     await page.evaluate(() => document.fonts.ready);
 
@@ -100,7 +91,7 @@ try {
     await roundTimestampsToTheDay(out);
 
     const { size } = await fs.stat(out);
-    console.log(`[ok] public/${file} (${lang}, ${(size / 1024).toFixed(0)} KB)`);
+    console.log(`[ok] public/${file} (from ${route}, ${(size / 1024).toFixed(0)} KB)`);
     await context.close();
   }
 } finally {

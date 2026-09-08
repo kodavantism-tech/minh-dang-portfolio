@@ -11,7 +11,7 @@ const STACK = ['hole-escape-puzzle', 'yarn-pull-3d', 'block-out-color-puzzle'];
 const CENTRE = 1;
 
 export function Hero() {
-  const { t, u, lang } = useLang();
+  const { t, u, lang, base } = useLang();
   const stack = STACK.map((slug) => games.find((g) => g.slug === slug)!).filter(Boolean);
 
   return (
@@ -99,7 +99,7 @@ export function Hero() {
             {games.map((g) => (
               <Link
                 key={g.slug}
-                href={`/games/${g.slug}`}
+                href={`${base}/games/${g.slug}`}
                 title={g.title}
                 className="group relative block size-11 overflow-hidden rounded-[0.85rem] border border-white/12 transition hover:-translate-y-1 hover:border-white/30 sm:size-12"
               >

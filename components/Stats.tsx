@@ -20,17 +20,20 @@ export function Stats() {
       <Reveal>
         <dl className="card grid grid-cols-2 divide-line overflow-hidden md:grid-cols-4 md:divide-x">
           {items.map((it, i) => (
+            /* A <dl> group must be `dt` then `dd` in the markup; the number is
+               lifted above its label with `order-*` so reading order stays
+               valid without changing the layout. */
             <div
               key={it.label}
-              className={`px-5 py-6 md:px-7 md:py-8 ${i < 2 ? 'border-b border-line md:border-b-0' : ''} ${
-                i % 2 === 1 ? 'border-l border-line md:border-l-0' : ''
-              }`}
+              className={`flex flex-col px-5 py-6 md:px-7 md:py-8 ${
+                i < 2 ? 'border-b border-line md:border-b-0' : ''
+              } ${i % 2 === 1 ? 'border-l border-line md:border-l-0' : ''}`}
             >
-              <dd className="font-display text-3xl font-semibold tracking-tight text-ink md:text-[2.1rem]">
+              <dt className="order-2 mt-1.5 text-sm font-medium text-ink/85">{u(it.label)}</dt>
+              <dd className="order-1 font-display text-3xl font-semibold tracking-tight text-ink md:text-[2.1rem]">
                 {it.value}
               </dd>
-              <dt className="mt-1.5 text-sm font-medium text-ink/85">{u(it.label)}</dt>
-              <p className="mt-0.5 text-xs text-faint">{u(it.note)}</p>
+              <dd className="order-3 mt-0.5 text-xs text-faint">{u(it.note)}</dd>
             </div>
           ))}
         </dl>

@@ -20,17 +20,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = game.displayTitle ?? game.title;
   const reach = game.installsExact
-    ? `${compactInstalls(game.installsExact)} downloads`
-    : `${game.score?.toFixed(2) ?? ''}★ on the App Store`;
+    ? `${compactInstalls(game.installsExact)} lượt tải`
+    : `${game.score?.toFixed(2) ?? ''}★ trên App Store`;
 
   return {
     title,
-    description: `${game.role.en} on ${title} — ${reach}. ${game.headline.en}`,
+    description: `${game.role.vi} trên ${title} — ${reach}. ${game.headline.vi}`,
     openGraph: {
       title,
-      description: game.headline.en,
-      // A purpose-built 1200×630 card from `npm run og`. A raw phone screenshot
-      // is portrait, so every platform used to crop it somewhere different.
+      description: game.headline.vi,
+      locale: 'vi_VN',
       images: [{ url: `/og/${game.slug}.png`, width: 1200, height: 630, alt: title }],
     },
     twitter: {
@@ -38,13 +37,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [`/og/${game.slug}.png`],
     },
     alternates: {
-      canonical: `/games/${game.slug}`,
+      canonical: `/vi/games/${game.slug}`,
       languages: { en: `/games/${game.slug}`, vi: `/vi/games/${game.slug}` },
     },
   };
 }
 
-export default async function GamePage({ params }: Props) {
+export default async function GamePageVi({ params }: Props) {
   const { slug } = await params;
   const game = getGame(slug);
   if (!game) notFound();

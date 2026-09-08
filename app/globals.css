@@ -7,7 +7,9 @@
   --color-surface-2: #161a28;
   --color-ink: #eceef6;
   --color-muted: #969db6;
-  --color-faint: #6b7290;
+  /* Lifted from #6b7290, which sat at 4.2:1 on the page background and failed
+     WCAG AA for body text. This clears 4.5:1 while keeping the same hue. */
+  --color-faint: #737a96;
   --color-line: #1f2434;
   --color-accent: #8b7bff;
   --color-accent-soft: #b3a8ff;

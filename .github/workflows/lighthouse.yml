@@ -1,0 +1,37 @@
+# Keeps the audit scores where they are. The site is static and currently
+# scores 100 on accessibility, SEO and best practices, so those are hard gates;
+# performance gets headroom because a shared CI runner is slower than a laptop.
+#
+# Thresholds live in .lighthouserc.json.
+name: Lighthouse
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Run Lighthouse
+        run: npx --yes @lhci/cli@0.15.x autorun
+
+      - name: Keep the reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci
+          retention-days: 14
