@@ -185,6 +185,20 @@
   }
 }
 
+/* An A4 document, not a screenshot of a dark website.
+ *
+ * Deliberately at the top level rather than inside the `@media print` block
+ * below. `@page` only ever applies to paged media, so the nesting bought
+ * nothing — and Chromium's printToPDF (what scripts/make-cv-pdf.mjs drives
+ * through Playwright's `preferCSSPageSize`) does not see an `@page` rule
+ * nested inside `@media print`. It silently fell back to US Letter, so the
+ * downloadable PDF came out 612x792pt while Ctrl+P from the browser, which
+ * reads the rule correctly, came out A4. */
+@page {
+  size: A4;
+  margin: 14mm 15mm;
+}
+
 /* Printing a portfolio still happens — make it legible on paper. */
 @media print {
   .ambience,
@@ -208,12 +222,7 @@
     color: #555;
   }
 
-  /* ---- /cv only: an A4 document, not a screenshot of a dark website ---- */
-  @page {
-    size: A4;
-    margin: 14mm 15mm;
-  }
-
+  /* ---- /cv only: paper metrics, not screen metrics ---- */
   .cv {
     max-width: none;
     padding: 0;
@@ -255,8 +264,12 @@
     font-size: 11pt;
   }
 
+  /* Drawn as a border rather than a background: printing with "background
+     graphics" off — Chrome's default, and what make-cv-pdf.mjs asks for —
+     drops backgrounds, which left every bullet without its dot. */
   .cv .cv-bullet::before {
-    background: #777;
+    background: none;
+    border: 0.125rem solid #777;
   }
 
   .cv .border-line,

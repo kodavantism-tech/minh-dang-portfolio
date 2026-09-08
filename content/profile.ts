@@ -35,9 +35,6 @@ export const profile = {
 
 /* ---------------------------------------------------------------------------
  *  WORK EXPERIENCE
- *  NOTE: these dates come from your CV (DANG_QUANG_MINH_CV.pdf). In chat you
- *  mentioned starting 09/2024 — if the CV is the one that is wrong, fix the
- *  two `period` strings below and nothing else changes.
  * ------------------------------------------------------------------------- */
 
 /**
@@ -45,7 +42,7 @@ export const profile = {
  * counts from here, so this and the earliest `period` string below have to
  * agree — keeping the date in one place is what stops them drifting apart.
  */
-export const CAREER_START = '2024-07-01';
+export const CAREER_START = '2024-09-01';
 
 export type Role = {
   title: Bi;
@@ -96,7 +93,7 @@ export const experience: Role[] = [
   {
     title: { en: 'Unity Developer Intern', vi: 'Thực tập sinh Unity Developer' },
     company: 'Falcon Game Studio',
-    period: { en: 'Jul 2024 — Sep 2025', vi: '07/2024 — 09/2025' },
+    period: { en: 'Sep 2024 — Sep 2025', vi: '09/2024 — 09/2025' },
     current: false,
     points: [
       {

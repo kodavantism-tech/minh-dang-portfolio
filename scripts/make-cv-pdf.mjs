@@ -45,13 +45,35 @@ async function roundTimestampsToTheDay(file) {
   if (flattened !== raw) await fs.writeFile(file, flattened, 'latin1');
 }
 
-/** Boots `next start` and resolves once it answers, so we never race the server. */
+/**
+ * Boots `next start` and resolves once it answers, so we never race the server.
+ *
+ * Two details that look fussy and are not:
+ *
+ * - It refuses to run if something is already on the port. The readiness probe
+ *   below cannot tell our server from a stranger's, so a leftover `next start`
+ *   would be adopted silently and the PDFs would be printed from whatever build
+ *   *that* process was serving — stale output, no error.
+ * - It spawns node against next's own entry point instead of going through
+ *   `npx` with `shell: true`. On Windows the shell form makes `server.kill()`
+ *   kill the shell and orphan the actual server, which is how the port gets
+ *   left occupied in the first place.
+ */
 async function startServer() {
-  const server = spawn('npx', ['next', 'start', '--port', String(PORT)], {
-    cwd: ROOT,
-    stdio: 'ignore',
-    shell: process.platform === 'win32',
-  });
+  const alreadyUp = await fetch(BASE)
+    .then(() => true)
+    .catch(() => false);
+  if (alreadyUp) {
+    throw new Error(
+      `something is already listening on ${BASE} — stop it first, otherwise the PDFs get printed from its build rather than this one`
+    );
+  }
+
+  const server = spawn(
+    process.execPath,
+    [path.join(ROOT, 'node_modules', 'next', 'dist', 'bin', 'next'), 'start', '--port', String(PORT)],
+    { cwd: ROOT, stdio: 'ignore' }
+  );
 
   const deadline = Date.now() + 60_000;
   while (Date.now() < deadline) {
