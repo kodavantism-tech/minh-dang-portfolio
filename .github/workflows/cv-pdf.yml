@@ -1,0 +1,59 @@
+# Rebuilds the downloadable CV PDFs whenever the CV's source text changes.
+#
+# The PDFs are committed to public/ rather than generated at request time —
+# the site is fully static and has no server to render them on, and a recruiter
+# clicking "Download PDF" should get a file instantly.
+name: CV PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/profile.ts'
+      - 'content/ui.ts'
+      - 'content/store-data.json'
+      - 'components/Cv.tsx'
+      - 'app/cv/**'
+      - 'app/globals.css'
+      - 'scripts/make-cv-pdf.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cv-pdf
+  cancel-in-progress: true
+
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      - run: npm run build
+
+      - name: Print /cv to PDF
+        run: npm run cv:pdf
+
+      - name: Commit if the PDFs changed
+        run: |
+          if git diff --quiet -- public/*.pdf; then
+            echo "CV PDFs unchanged — nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/*.pdf
+          git commit -m "chore: rebuild CV PDFs"
+          git push

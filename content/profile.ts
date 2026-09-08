@@ -40,6 +40,13 @@ export const profile = {
  *  two `period` strings below and nothing else changes.
  * ------------------------------------------------------------------------- */
 
+/**
+ * First day at Falcon Game Studio. The "years at Falcon" stat on the home page
+ * counts from here, so this and the earliest `period` string below have to
+ * agree — keeping the date in one place is what stops them drifting apart.
+ */
+export const CAREER_START = '2024-07-01';
+
 export type Role = {
   title: Bi;
   company: string;

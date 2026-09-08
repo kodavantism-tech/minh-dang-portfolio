@@ -89,6 +89,30 @@ không cắt đôi một công việc hay một game giữa hai trang. Quy tắc
 
 Muốn CV tiếng Việt: đổi ngôn ngữ bằng nút trên nav **rồi mới** in.
 
+### File PDF tải sẵn
+
+Nút **Tải PDF** trỏ tới file có sẵn trong `public/`, không phải in tại chỗ — nhà
+tuyển dụng bấm là có file ngay để forward nội bộ:
+
+```
+public/dang-quang-minh-cv.pdf       bản tiếng Anh
+public/dang-quang-minh-cv-vi.pdf    bản tiếng Việt
+```
+
+Sinh lại:
+
+```bash
+npm run build && npm run cv:pdf
+```
+
+`scripts/make-cv-pdf.mjs` bật `next start`, dùng Playwright mở `/cv` (ép ngôn ngữ
+qua `localStorage` trước khi trang chạy) rồi in ra PDF. Nó lấy khổ giấy và lề từ
+`@page` trong `app/globals.css`, nên không có bản sao thứ hai của mấy con số đó.
+
+Chromium đóng dấu thời gian tới từng giây vào PDF, nên script làm tròn xuống
+0h — chạy hai lần liên tiếp ra file giống hệt nhau từng byte, và CI chỉ commit
+khi CV thật sự đổi.
+
 ## Structured data (JSON-LD)
 
 `lib/schema.ts` sinh dữ liệu có cấu trúc cho Google:
@@ -108,6 +132,7 @@ Trong `.github/workflows/`:
 |---|---|---|
 | `ci.yml` | mỗi push lên `main`, mỗi PR | `npm run typecheck` + `npm run build` |
 | `archive.yml` | 02:00 UTC ngày 1 hàng tháng, hoặc bấm tay | chạy `npm run archive`, build thử, commit nếu số liệu store đổi |
+| `cv-pdf.yml` | khi push đụng vào nội dung CV | in lại hai file PDF, commit nếu khác |
 
 `archive.yml` cần quyền ghi (`contents: write`) — đã khai sẵn trong file. Nếu một
 listing bị gỡ, script giữ bản archive cũ và vẫn thoát 0, nên workflow báo xanh chứ

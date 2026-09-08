@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "archive": "node scripts/archive-stores.mjs"
+    "archive": "node scripts/archive-stores.mjs",
+    "cv:pdf": "node scripts/make-cv-pdf.mjs"
   },
   "dependencies": {
     "next": "16.3.4",
@@ -29,6 +30,7 @@
     "@types/react": "19.2.8",
     "@types/react-dom": "19.2.4",
     "google-play-scraper": "^10.0.0",
+    "playwright": "^1.63.0",
     "sharp": "^0.34.0",
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3"

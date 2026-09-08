@@ -1,5 +1,5 @@
 import storeData from '@/content/store-data.json';
-import { gameContent, type GameContent } from '@/content/profile';
+import { gameContent, CAREER_START, type GameContent } from '@/content/profile';
 
 export type Img = { src: string; w: number; h: number; bytes: number; blur?: string };
 
@@ -110,8 +110,13 @@ export const totals = (() => {
     titles: games.length,
     ratingCount,
     avgRating: weighted,
-    /** Whole years since the first day at Falcon Game Studio (Jul 2024). */
-    years: Math.max(1, Math.floor((Date.now() - Date.UTC(2024, 6, 1)) / (365.25 * 24 * 3600 * 1000))),
+    /** Whole years since the first day at Falcon — the date lives in profile.ts. */
+    years: Math.max(
+      1,
+      Math.floor(
+        (Date.now() - Date.parse(`${CAREER_START}T00:00:00Z`)) / (365.25 * 24 * 3600 * 1000)
+      )
+    ),
   };
 })();
 

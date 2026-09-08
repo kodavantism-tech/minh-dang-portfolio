@@ -81,6 +81,7 @@ export const ui = {
   /* --- CV page. Everything here only appears on /cv. --- */
   cvTitle: { en: 'Curriculum vitae', vi: 'Sơ yếu lý lịch' },
   cvPrint: { en: 'Print / Save as PDF', vi: 'In / Lưu thành PDF' },
+  cvDownload: { en: 'Download PDF', vi: 'Tải PDF' },
   cvHint: {
     en: 'This page is the CV. Press the button (or Ctrl+P) and choose “Save as PDF” — navigation, colours and this note are dropped from the printed copy.',
     vi: 'Trang này chính là bản CV. Bấm nút (hoặc Ctrl+P) rồi chọn “Lưu thành PDF” — điều hướng, màu nền và dòng ghi chú này sẽ không được in ra.',

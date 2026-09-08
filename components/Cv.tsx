@@ -37,13 +37,23 @@ export function Cv() {
             <p className="mt-1 text-lg text-accent-soft">{t(profile.role)}</p>
           </div>
 
-          <button
-            type="button"
-            onClick={() => window.print()}
-            className="no-print rounded-full border border-white/12 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-white/25 hover:bg-white/10 hover:text-white"
-          >
-            {u('cvPrint')}
-          </button>
+          <div className="no-print flex flex-wrap items-center gap-2">
+            {/* Built by scripts/make-cv-pdf.mjs from this very page. */}
+            <a
+              href={lang === 'vi' ? '/dang-quang-minh-cv-vi.pdf' : '/dang-quang-minh-cv.pdf'}
+              download
+              className="rounded-full border border-accent/40 bg-accent/15 px-4 py-2 text-sm font-medium text-accent-soft transition hover:border-accent/70 hover:bg-accent/25 hover:text-white"
+            >
+              {u('cvDownload')}
+            </a>
+            <button
+              type="button"
+              onClick={() => window.print()}
+              className="rounded-full border border-white/12 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-white/25 hover:bg-white/10 hover:text-white"
+            >
+              {u('cvPrint')}
+            </button>
+          </div>
         </div>
 
         <ul className="cv-contact mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted">
